@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verdadeiro ou Falso - Pinguins</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>🐧 Verdadeiro ou Falso</h1>
+    <h2>Pinguins</h2>
+
+    <div id="jogo">
+        <h3 id="pergunta"></h3>
+
+        <div class="botoes">
+            <button onclick="responder(true)">✅ Verdadeiro</button>
+            <button onclick="responder(false)">❌ Falso</button>
+        </div>
+
+        <p id="resultado"></p>
+        <p id="placar"></p>
+    </div>
+</div>
+
+<script>
+const perguntas = [
+{
+pergunta: "Os pinguins são aves.",
+resposta: true
+},
+{
+pergunta: "Os pinguins conseguem voar.",
+resposta: false
+},
+{
+pergunta: "Os pinguins vivem apenas no Polo Norte.",
+resposta: false
+},
+{
+pergunta: "Os pinguins são excelentes nadadores.",
+resposta: true
+},
+{
+pergunta: "Os pinguins respiram por brânquias.",
+resposta: false
+},
+{
+pergunta: "Existem pinguins que vivem em regiões quentes.",
+resposta: true
+},
+{
+pergunta: "Os pinguins se alimentam principalmente de peixes.",
+resposta: true
+},
+{
+pergunta: "Todos os pinguins têm exatamente o mesmo tamanho.",
+resposta: false
+},
+{
+pergunta: "Os pinguins botam ovos.",
+resposta: true
+},
+{
+pergunta: "A Antártida abriga várias espécies de pinguins.",
+resposta: true
+}
+];
+
+let indice = 0;
+let pontos = 0;
+
+function mostrarPergunta() {
+    document.getElementById("resultado").textContent = "";
+    document.getElementById("placar").textContent =
+    `Pontos: ${pontos} | Pergunta ${indice + 1} de ${perguntas.length}`;
+
+    document.getElementById("pergunta").textContent =
+    perguntas[indice].pergunta;
+}
+
+function responder(resposta) {
+    if (resposta === perguntas[indice].resposta) {
+        pontos++;
+        document.getElementById("resultado").textContent = "🎉 Correto!";
+        document.getElementById("resultado").style.color = "green";
+    } else {
+        document.getElementById("resultado").textContent = "❌ Errado!";
+        document.getElementById("resultado").style.color = "red";
+    }
+
+    indice++;
+
+    setTimeout(() => {
+        if (indice < perguntas.length) {
+            mostrarPergunta();
+        } else {
+            document.getElementById("jogo").innerHTML = `
+                <h2>Fim do jogo!</h2>
+                <p>Você acertou <strong>${pontos}</strong> de ${perguntas.length} perguntas.</p>
+                <button onclick="location.reload()">🔄 Jogar novamente</button>
+            `;
+        }
+    }, 1000);
+}
+
+mostrarPergunta();
+</script>
+
+</body>
+</html>
